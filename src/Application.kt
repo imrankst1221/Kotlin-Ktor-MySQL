@@ -25,11 +25,16 @@ fun Application.module() {
     connectDB()
     routing {
         get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+            call.respondText("I'm alive!", contentType = ContentType.Text.Plain)
         }
 
         get("/infix_ads") {
             call.respondText(getInfixAds(), ContentType.Text.Html)
+        }
+
+        get("/infix_ads/{position}") {
+            val position = call.parameters["position"]?.toIntOrNull() ?: 0
+            call.respondText(getInfixAds(position), ContentType.Text.Html)
         }
     }
 }
